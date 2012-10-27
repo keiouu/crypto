@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -g
 OUT_DIR = build
-OBJS = main.o
+OBJS = main.o ciphers.o
 OUT_OBJS=$(addprefix $(OUT_DIR)/,$(OBJS))
 
 main: ${OBJS}
