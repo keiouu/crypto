@@ -34,22 +34,28 @@ void solve_caesar(const char *in) {
 	}
 }
 
-void solve_vigenere_with_key(const char *key, const char *in) {
-	printf("Decrypting %s with key: %s\n", in, key);
-
+void attempt_vigenere(const char *key, const char *in, char* out) {
 	int len = strlen(in), k_len = strlen(key);
-	char str[len];
-	strcpy(str, in);
+	strcpy(out, in);
 
 	for (int i = 0; i < len; i++) {
- 		char lower = tolower(str[i]) - 'a';
+ 		char lower = tolower(out[i]) - 'a';
  		char lkey = tolower(key[i % k_len]) - 'a';
  		int r = (int)(lower) - (int)lkey;
  		if (r < 0)
  			r = 26 + r;
 
-		str[i] = alpha[r % 26];
+		out[i] = alpha[r % 26];
 	}
+}
 
-	printf("%s\n", str);
+void solve_vigenere_with_key(const char *key, const char *in) {
+	printf("Decrypting %s with key: %s\n", in, key);
+	char out[80];
+	attempt_vigenere(key, in, out);
+	printf("%s\n", out);
+}
+
+void solve_vigenere_with_key_length(int len, const char *in) {
+
 }
