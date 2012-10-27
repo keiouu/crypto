@@ -1,6 +1,7 @@
 
 #include "common.h"
 #include "ciphers.h"
+#include "../etc/tess26.h"
 
 void rotate(int count, char *str) {
 	int length = strlen(str);
@@ -25,7 +26,12 @@ void solve_caesar(const char *in) {
 	printf("Decrypting %s\n", str);
 
 	for (int i = 0; i < 26; i++) {
+
 		rotate(1, str);
-		printf("%s\n", str);
+		if (strstr(tess26, str) != NULL) {
+			printf("Solved by shifting %d places. \n", i + 1);
+			printf("%s\n", str);
+			break;
+		}
 	}
 }
