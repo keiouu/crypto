@@ -3,19 +3,17 @@
 #include "ciphers.h"
 #include "../etc/tess26.h"
 
+const char alpha[] = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
+
 void rotate(int count, char *str) {
-	int length = strlen(str);
-	char alpha[2][27] = { "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	int len = strlen(str);
  
-	for (int i = 0; i < length; i++) {
+	for (int i = 0; i < len; i++) {
 		if (!isalpha(str[i]) || (str[i] == ' '))
 			continue;
  
- 		int isUpper = isupper(str[i]);
- 		if (isUpper > 1)
- 			isUpper = 1;
  		char lower = tolower(str[i]) - 'a';
-		str[i] = alpha[isUpper][((int)(lower) + count) % 26];
+		str[i] = alpha[((int)(lower) + count) % 26];
 	}
 }
 
@@ -34,4 +32,24 @@ void solve_caesar(const char *in) {
 			break;
 		}
 	}
+}
+
+void solve_vigenere_with_key(const char *key, const char *in) {
+	printf("Decrypting %s with key: %s\n", in, key);
+
+	int len = strlen(in), k_len = strlen(key);
+	char str[len];
+	strcpy(str, in);
+
+	for (int i = 0; i < len; i++) {
+ 		char lower = tolower(str[i]) - 'a';
+ 		char lkey = tolower(key[i % k_len]) - 'a';
+ 		int r = (int)(lower) - (int)lkey;
+ 		if (r < 0)
+ 			r = 26 + r;
+
+		str[i] = alpha[r % 26];
+	}
+
+	printf("%s\n", str);
 }
