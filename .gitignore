@@ -11,6 +11,9 @@
 *.la
 *.a
 
+# Binary
+run
+
 # All txt files in in/out
 in/*.txt
 out/*.txt
