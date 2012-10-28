@@ -51,11 +51,12 @@ void attempt_vigenere(const char *key, const char *in, char* out) {
 
 void solve_vigenere_with_key(const char *key, const char *in) {
 	printf("Decrypting %s with key: %s\n", in, key);
-	char out[80];
+	int len = strlen(in);
+	char out[len];
 	attempt_vigenere(key, in, out);
 	printf("%s\n", out);
 }
 
 void solve_vigenere_with_key_length(int len, const char *in) {
-
+	// We know the key length, lets do some frequency analysis
 }
