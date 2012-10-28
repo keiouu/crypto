@@ -5,6 +5,7 @@
 // Bring in header files
 #include "../in/ex1.h"
 #include "../in/ex2.h"
+#include "../in/ex3.h"
 
 
 int main(int argc, char *argv[]) {

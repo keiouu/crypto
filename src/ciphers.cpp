@@ -1,6 +1,7 @@
 
 #include "common.h"
 #include "ciphers.h"
+#include "lang.h"
 #include "../etc/tess26.h"
 
 const char alpha[] = { "ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
@@ -59,4 +60,6 @@ void solve_vigenere_with_key(const char *key, const char *in) {
 
 void solve_vigenere_with_key_length(int len, const char *in) {
 	// We know the key length, lets do some frequency analysis
+	float *dists = get_distributions(in);
+	delete dists;
 }
