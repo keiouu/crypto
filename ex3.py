@@ -28,7 +28,8 @@ letterdists = {
 	"X": 0.140858311026,	
 	"Y": 1.98727343619,	
 	"Z": 0.0895390357833,
-	"max": 12.9484850026	
+	"max": 12.9484850026,
+	"kappa":0.0666
 }
 
 # Shift all letters by key
@@ -82,16 +83,17 @@ def find_shift(txt):
 
 	return best
 
-# Work out the key
-klen = 6
-code = ""
-for i in range(klen):
-	# For every character in the key, work out what fits best with the
-	# range of characters that key hashes
-	letters = "".join([intxt[j] for j in range(i, len(intxt), klen)])
-	shift = find_shift(letters)
-	if shift == 0:
-		code = "%sA" % code
-	else:
-		code = "%s%s" % (code, chr(ord('A') + (26 - shift)))
-print code
+if __name__ == "__main__":
+	# Work out the key
+	klen = 6
+	code = ""
+	for i in range(klen):
+		# For every character in the key, work out what fits best with the
+		# range of characters that key hashes
+		letters = "".join([intxt[j] for j in range(i, len(intxt), klen)])
+		shift = find_shift(letters)
+		if shift == 0:
+			code = "%sA" % code
+		else:
+			code = "%s%s" % (code, chr(ord('A') + (26 - shift)))
+	print code
