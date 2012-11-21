@@ -58,8 +58,37 @@ void solve_vigenere_with_key(const char *key, const char *in) {
 	printf("%s\n", out);
 }
 
-void solve_vigenere_with_key_length(int len, const char *in) {
-	// We know the key length, lets do some frequency analysis
-	float *dists = get_distributions(in);
-	delete dists;
+void solve_vigenere_with_key_length(int klen, const char *in) {
+	int in_len = strlen(in);
+
+	// We know the key length, lets do some frequency analysis to find the key
+	char *proposed_key = new char[klen];
+
+	for (int i = 0; i < klen; i++) {
+		// Build a char of all the letters this part of the key has hashed
+		char *keystr = new char[in_len / klen];
+		int ptr = 0;
+		for (int j = i; j < in_len; j+=klen)
+			keystr[ptr++] = in[j];
+
+		// Get the distributions for this key
+		float *dists = get_distributions(keystr);
+
+
+		// Try to find 'E'
+		int lk = get_e(dists);
+
+		// E is supposed to be 4, what letter must be added to this to make lk?
+		if (lk - 4 >= 0) 
+			proposed_key[i] = 'A' + (lk - 4);
+		else
+			proposed_key[i] = 'Z' + (lk - 4);
+
+		delete keystr;
+		delete dists;
+	}
+
+
+	solve_vigenere_with_key(proposed_key, in);
+	delete proposed_key;
 }
