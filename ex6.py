@@ -7,11 +7,11 @@ ciphertext = "RENIRMOLEHFBGONRONEANVSWEUAHHESMGSACLOLITNTWWLFERNIESGNHICGUOUEKLR
 blk_len = len(ciphertext) / 6
 blks = [ciphertext[i:i+blk_len] for i in range(0, len(ciphertext), blk_len)]
 
-
 # olololololol brute force.
 found = False
 while not found:
 	random.shuffle(blks)
+
 	ostr = ""
 	for i in range(0, blk_len):
 		for blk in blks:
