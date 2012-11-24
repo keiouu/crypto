@@ -18,3 +18,5 @@ run
 in/*.txt
 out/*.txt
 
+txttess
+*.pyc
