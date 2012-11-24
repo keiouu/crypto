@@ -1,35 +1,41 @@
 ciphertext = "ZGHSTNXCAXAEYBQABTEMBNRKLLGWLKULEJRONQUIJMSDPUIIDWZFLIGKCHQNWHKLBHSIZLLMGHPRUFSWOIMHHMLZRZKTFKAXKLDRDPHIELQHPXUNRGWASHXLKRDSTXQNUHWKMZEEYMRETZQAWRBVDWOEZHFFKAMZLLHGAIYLJDVZEOWSDKLWAZRDVAIJMZGHYLUPENWBGQBYSKLYVIPQHKKKHQGHYFUWTBHZSGLENPHOKBEQRBKNEJZSWVUQTLDAIZHEGHJYZYZQHCITBYFZLEXTYCZOITLSDKHHJHYDWOMYTYCWOIVXYCDUXZHEGHUIIDWZFLLAGRHVVPGMPCDTMJMSDZOMZXYDVZSLAPQWOVUTEZVPXCTDCHZMMGPCWVHUAPRWLTVXOADJOZHDTUCIEAPQPFLKTGDQZWGBOBOHVKAZVELEAMTEXSCUNLQHHWKOPQBISJRVMRDWLBYDILEZAPQVTEQXQHQLFOKORDWIGLLMWNMXEMTWCIXRXNGLVGMPKBWVKIZRVLWYBYFWVXNXNZVBERHMRHYZKKTMKLVYBXOOLGUGOHWPSTTYCDAXOKPVLSPHEZNPHWGGLLDGMTZMDDBXEBQBOVXNXOZVHAUFLMRMJGLSHRUAOMSSKLEOWDSKHXGKEBDUVKGODUDLOEPSKLFKTFSBVJZAPLLKROZSSFYYYAHNXSHUYEDQJYZUFSDZSXKJELNYXXTESSEIXOHQZMJXEGHMMKEOVRTETLHQDWTKKFORUESHYNWVRUNDZFYIGZPNIAYXGTOVVRGWFKOKEEAPGDKRKOPQWPPRGZVHZXOFLSHKXNXLQWPWZBNDAJIREPMFLSLM"
 
-#a b c
-#d e f
-#g h i
+#abcdefghijklmno
 
-#adgcfibeh
+#a b c d e
+#f g h i j
+#k l m n o
 
-#adg
-#cfi
-#beh
+#afkbglchmdinejo
+#afk bgl chm din ejo
 
-#abc
-#def
-#ghi
+
 
 def try_column(column):
-	# Split into columns
-	columns = [[ciphertext[x] for x in range(i, len(ciphertext), column)] for i in range(0, column)]
+	# Split into blocks
+	blk_len = len(ciphertext) / column
+	blks = [ciphertext[i:i+blk_len] for i in range(0, len(ciphertext), blk_len)]
 
-	stro = ""
-	# Print each character, alternating between columns
-	for i in range(0, len(ciphertext) / column):
-		alt = False
-		for j in range(0, len(columns)):
-			if alt:
-				stro += columns[j][i]
-			else:
-				stro += columns[len(columns) - 1 - j][i]
+	# Re-Arrange Blocks
+	start = []
+	end = []
+	alt = False
+	for blk in blks:
+		if alt:
+			end.insert(0, blk)
+		else:
+			start.append(blk)
+		alt = not alt
 
-			alt = not alt
-	print stro
+	#blks = start + end
+
+	# Print out
+	ostr = ""
+	for i in range(0, 3):
+		for blk in blks:
+			if i < len(blk):
+				ostr = ostr + blk[i]
+	print ostr
 
 try_column(4)
 try_column(5)
